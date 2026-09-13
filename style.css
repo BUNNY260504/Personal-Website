@@ -614,13 +614,9 @@ section {
   color: var(--text-primary);
 }
 
-.copilot-logo {
-  width: 72px;
-}
-
 .certification-issuer-icon {
-  width: 18px;
-  height: 18px;
+  width: 44px;
+  height: 44px;
 }
 
 .certification-title {
@@ -991,10 +987,6 @@ html[data-theme="light"] .theme-toggle .icon-sun {
   .certification-logo {
     width: 72px;
     height: 48px;
-  }
-
-  .copilot-logo {
-    width: 58px;
   }
 
   .theme-toggle {
