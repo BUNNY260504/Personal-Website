@@ -618,13 +618,9 @@ section {
   width: 72px;
 }
 
-.certification-issuer {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
+.certification-issuer-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .certification-title {
