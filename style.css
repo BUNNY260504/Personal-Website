@@ -11,13 +11,23 @@
   --text-primary: #f5f7fb;
   --text-secondary: #b7becb;
   --text-muted: #858e9d;
-  
+  --nav-dot-bg: rgba(255, 255, 255, 0.2);
+
   /* Accent blocks matching reference screenshot */
   --accent-red: #f03a3a;
   --accent-yellow: #f2c238;
   --accent-blue: #3fa2f6;
   --accent-green: #2ae075;
-  
+
+  /* Accent variants used for text directly on the page background.
+     Equal to the accent blocks above by default (dark theme has
+     plenty of contrast); the light theme darkens these below so
+     headings stay readable on a bright background. */
+  --accent-red-text: var(--accent-red);
+  --accent-yellow-text: var(--accent-yellow);
+  --accent-blue-text: var(--accent-blue);
+  --accent-green-text: var(--accent-green);
+
   /* Fonts */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'Space Mono', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
@@ -25,6 +35,25 @@
   /* Transitions */
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Light theme palette (activated via [data-theme="light"] on <html>) */
+html[data-theme="light"] {
+  --bg-color: #f7f8fb;
+  --surface-color: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-muted: #eef0f4;
+  --border-color: #e1e5ec;
+  --border-hover: #c5cbd6;
+  --text-primary: #12141b;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --nav-dot-bg: rgba(0, 0, 0, 0.18);
+
+  --accent-red-text: #d81f1f;
+  --accent-yellow-text: #a8790a;
+  --accent-blue-text: #1568c7;
+  --accent-green-text: #12894f;
 }
 
 /* Reset */
@@ -47,6 +76,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Base Layout Container */
@@ -246,13 +276,13 @@ section {
   position: relative;
 }
 
-#about .section-title span { color: var(--accent-red); }
-#skills .section-title span { color: var(--accent-yellow); }
-#projects .section-title span { color: var(--accent-blue); }
-#certifications .section-title span { color: var(--accent-red); }
-#experience .section-title span { color: var(--accent-green); }
-#education .section-title span { color: var(--accent-yellow); }
-#hobbies .section-title span { color: var(--accent-blue); }
+#about .section-title span { color: var(--accent-red-text); }
+#skills .section-title span { color: var(--accent-yellow-text); }
+#projects .section-title span { color: var(--accent-blue-text); }
+#certifications .section-title span { color: var(--accent-red-text); }
+#experience .section-title span { color: var(--accent-green-text); }
+#education .section-title span { color: var(--accent-yellow-text); }
+#hobbies .section-title span { color: var(--accent-blue-text); }
 
 /* Subtle side navigation */
 .side-nav {
@@ -270,7 +300,7 @@ section {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--nav-dot-bg);
   cursor: pointer;
   transition: var(--transition-smooth);
 }
@@ -637,6 +667,66 @@ section {
   opacity: 0.6;
 }
 
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  top: 32px;
+  right: 40px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 110;
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--accent-yellow);
+  outline-offset: 4px;
+}
+
+.theme-toggle svg {
+  grid-area: 1 / 1;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.theme-toggle .icon-moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.theme-toggle .icon-sun {
+  opacity: 0;
+  transform: scale(0.5) rotate(-90deg);
+}
+
+html[data-theme="light"] .theme-toggle .icon-moon {
+  opacity: 0;
+  transform: scale(0.5) rotate(90deg);
+}
+
+html[data-theme="light"] .theme-toggle .icon-sun {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
 /* Scroll to Top */
 .scroll-to-top {
   position: fixed;
@@ -920,6 +1010,13 @@ section {
 
   .copilot-logo {
     width: 58px;
+  }
+
+  .theme-toggle {
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
   }
 
   .scroll-to-top {

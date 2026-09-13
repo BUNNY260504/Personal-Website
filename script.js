@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveSectionTracker();
   initScrollReveal();
   initScrollToTop();
+  initThemeToggle();
 });
 
 /**
@@ -197,6 +198,39 @@ function initScrollToTop() {
       top: 0,
       behavior: prefersReducedMotion ? 'auto' : 'smooth'
     });
+  });
+}
+
+/**
+ * Theme Toggle: Switch between dark and light color schemes.
+ * The initial theme is applied synchronously by an inline script in
+ * <head> (to avoid a flash of the wrong theme); this just wires up
+ * the button, persists the choice, and keeps the meta theme-color
+ * (mobile browser chrome) in sync.
+ */
+function initThemeToggle() {
+  const toggle = document.querySelector('.theme-toggle');
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (!toggle) return;
+
+  const THEME_COLORS = { dark: '#090b10', light: '#f7f8fb' };
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    const nextLabel = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+    toggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    toggle.setAttribute('aria-label', nextLabel);
+    toggle.title = nextLabel;
+    if (meta) meta.setAttribute('content', THEME_COLORS[theme]);
+  }
+
+  const currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  applyTheme(currentTheme);
+
+  toggle.addEventListener('click', () => {
+    const nextTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', nextTheme);
+    applyTheme(nextTheme);
   });
 }
 
