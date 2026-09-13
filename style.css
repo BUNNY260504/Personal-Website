@@ -147,17 +147,6 @@ section {
   opacity: 0;
 }
 
-.hero-description {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  color: var(--text-secondary);
-  max-width: 500px;
-  margin-bottom: 40px;
-  line-height: 1.8;
-  animation: fadeIn 1s ease 0.4s forwards;
-  opacity: 0;
-}
-
 /* Social icons and links */
 .hero-meta {
   display: flex;
