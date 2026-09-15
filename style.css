@@ -638,14 +638,16 @@ section {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--text-primary);
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 4px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #ff9900;
+  border-radius: 8px;
+  padding: 8px 14px;
   transition: var(--transition-smooth);
 }
 
 .certification-link:hover {
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 /* Theme Toggle */
